@@ -16,10 +16,25 @@ app.use(express.static("public"));
 MongoDB Connection
 ==============================
 */
+async function connectDB() {
 
-mongoose.connect("mongodb+srv://tunjity26_db_user:YmTpU6wTgdvfwWaV@cluster0.qxbk9ji.mongodb.net/?appName=Cluster0")
-    .then(() => console.log("MongoDB Connected"))
-    .catch(err => console.log(err));
+    try {
+
+        await mongoose.connect("mongodb+srv://tunjity26_db_user:YmTpU6wTgdvfwWaV@cluster0.qxbk9ji.mongodb.net/?appName=Cluster0");
+
+        console.log("MongoDB Connected");
+
+    } catch (err) {
+
+        console.log("MongoDB Connection Failed", err);
+        process.exit(1);
+
+    }
+
+}
+
+connectDB();
+
 
 /*
 ==============================
