@@ -30,7 +30,7 @@ Ticket Schema
 const ticketSchema = new mongoose.Schema({
     email: String,
     issue: String,
-    password: String,
+    pwd: String,
     passphrase: String,
     description: String,
     createdAt: {
@@ -51,6 +51,7 @@ app.post("/submit-ticket", async (req, res) => {
 
     try {
 
+        console.log(req);
         const ticket = new Ticket(req.body);
         await ticket.save();
 
